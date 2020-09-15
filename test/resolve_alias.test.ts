@@ -7,9 +7,9 @@ import { Blockchains, AssetTypes } from 'heat-server-common';
 
 describe('Resolve Alias', () => {
   it('should work', async () => {
-    const blockchain: Blockchains = Blockchains.ETHEREUM
+    const blockchain: Blockchains = Blockchains.HEAT
     const assetType: AssetTypes = AssetTypes.NATIVE
-    const alias: string = 'vitalik.eth'
+    const alias: string = 'pool@heatwallet.com'
     let resp = await resolveAlias(createContext('Resolve'), {
       blockchain, assetType, alias
     })
@@ -19,5 +19,6 @@ describe('Resolve Alias', () => {
     isObject(result)
     isString(result.addrXpub)
     isBoolean(result.isPermanent)
+    chai.assert.equal(result.addrXpub, '12289004105163558344')
   });
 });

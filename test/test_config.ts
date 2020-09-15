@@ -1,9 +1,10 @@
 import { Logger } from '@nestjs/common';
 import { MonitoredRequest, CallContext } from 'heat-server-common';
 
+/// Heat
 export const testConfig = {
-  protocol: 'http',
-  host: 'localhost:3000'
+  protocol: 'https',
+  host: 'heatwallet.com:7734'
 }
 
 export function createContext(label?: string) {

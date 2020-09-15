@@ -7,10 +7,10 @@ import { Blockchains, AssetTypes } from 'heat-server-common';
 
 describe('Event Lookup', () => {
   it('should work', async () => {
-    const blockchain: Blockchains = Blockchains.ETHEREUM
+    const blockchain: Blockchains = Blockchains.HEAT
     const assetType: AssetTypes = AssetTypes.NATIVE
-    const assetId: string = '0x1234'
-    const addrXpub: string = '0x5678'
+    const assetId: string = '0'
+    const addrXpub: string = '12289004105163558344'
     const from: number = 0
     const to: number = 100
     const minimal: boolean = false
@@ -34,7 +34,7 @@ describe('Event Lookup', () => {
         isNumber(event.type)
         isNumber(event.assetType)
         isString(event.assetId)
-        isObject(event.data)
+        isArray(event.data)
       }
     }
   });

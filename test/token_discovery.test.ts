@@ -7,10 +7,11 @@ import { Blockchains, AssetTypes } from 'heat-server-common';
 
 describe('Token Discovery', () => {
   it('should work', async () => {
-    const blockchain: Blockchains = Blockchains.ETHEREUM
+    const blockchain: Blockchains = Blockchains.HEAT
     const assetType: AssetTypes = AssetTypes.TOKEN_TYPE_1
-    const addrXpub: string = '0x123456789'
-    let resp = await tokenDiscovery(createContext('Token'), {
+    const addrXpub: string = '12289004105163558344'
+    const context = createContext('Token')
+    let resp = await tokenDiscovery(context, {
       blockchain, assetType, addrXpub
     })
     //console.log('response', resp)

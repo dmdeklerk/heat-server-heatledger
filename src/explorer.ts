@@ -1,14 +1,12 @@
 import { RateLimiterClass, ExplorerMiddleware, ExplorerBase } from 'heat-server-common'
 import { balanceLookup } from './modules/balance_lookup';
 import { eventLookup } from './modules/event_lookup';
-import { networkFee } from './modules/network_fee';
 import { networkStatus } from './modules/network_status';
 import { publicKeyLookup } from './modules/publickey_lookup'
 import { resolveAlias } from './modules/resolve_alias'
 import { reverseResolveAlias } from './modules/reverse_resolve_alias'
 import { tokenDiscovery } from './modules/token_discovery'
 import { transactionStatus } from './modules/transaction_status'
-import { utxoLookup } from './modules/utxo_lookup'
 import { broadcast } from './modules/broadcast'
 import { customHeatAccount } from './modules/custom_heat_account'
 import { ModuleProvider } from 'heat-server-common/dist/types/module_provider.interface';
@@ -23,14 +21,12 @@ const modules: ModuleProvider = {
   balanceLookup,
   eventLookup,
   broadcast,
-  networkFee,
   networkStatus,
   publicKeyLookup,
   resolveAlias,
   reverseResolveAlias,
   tokenDiscovery,
   transactionStatus,
-  utxoLookup,
   customHeatAccount
 }
 

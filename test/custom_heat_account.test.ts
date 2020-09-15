@@ -8,7 +8,7 @@ import { Blockchains, AssetTypes } from 'heat-server-common';
 describe('Custom Heat Account', () => {
   it('should work', async () => {
     const blockchain = Blockchains.HEAT
-    const addrXpub = '123456789'
+    const addrXpub = '12289004105163558344'
     let resp = await customHeatAccount(createContext('Status'), {
       blockchain, addrXpub,
     })
@@ -21,11 +21,11 @@ describe('Custom Heat Account', () => {
     isString(result.unconfirmedBalance)
     isString(result.effectiveBalance)
     isString(result.currentLessee)
-    isString(result.currentLesseeName)
+    if (result.currentLesseeName) isString(result.currentLesseeName)
     isNumber(result.currentLeasingHeightFrom)
     isNumber(result.currentLeasingHeightTo)
     isString(result.nextLessee)
-    isString(result.nextLesseeName)
+    if (result.nextLesseeName) isString(result.nextLesseeName)
     isNumber(result.nextLeasingHeightFrom)
     isNumber(result.nextLeasingHeightTo)
   });

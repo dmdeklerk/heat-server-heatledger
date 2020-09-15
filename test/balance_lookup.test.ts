@@ -7,10 +7,10 @@ import { Blockchains, AssetTypes } from 'heat-server-common';
 
 describe('Balance Lookup', () => {
   it('should work', async () => {
-    const blockchain: Blockchains = Blockchains.ETHEREUM
+    const blockchain: Blockchains = Blockchains.HEAT
     const assetType: AssetTypes = AssetTypes.NATIVE
     const assetId: string = '0'
-    const addrXpub: string = '0x123456789'    
+    const addrXpub: string = '12289004105163558344'    
     let resp = await balanceLookup(createContext('Balance'), {
       blockchain, assetType, assetId, addrXpub
     })
