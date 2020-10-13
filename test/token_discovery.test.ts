@@ -3,7 +3,7 @@ const { isObject, isTrue, isNumber, isString, isArray, isBoolean } = chai.assert
 import 'mocha';
 import { createContext } from './test_config'
 import { tokenDiscovery } from '../src/modules/token_discovery';
-import { Blockchains, AssetTypes } from 'heat-server-common';
+import { Blockchains, AssetTypes, prettyPrint } from 'heat-server-common';
 
 describe('Token Discovery', () => {
   it('should work', async () => {
@@ -14,7 +14,7 @@ describe('Token Discovery', () => {
     let resp = await tokenDiscovery(context, {
       blockchain, assetType, addrXpub
     })
-    //console.log('response', resp)
+    console.log('response', prettyPrint(resp))
     isObject(resp)
     let result = resp.value
     isArray(result)
