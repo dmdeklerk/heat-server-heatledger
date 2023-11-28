@@ -9,8 +9,8 @@ async function reverseResolveAlias(context, param) {
         const { addrXpub } = param;
         const url = `${protocol}://${host}/api/v1/account/find/${addrXpub}`;
         const json = await req.get(url);
-        const data = heat_server_common_1.tryParse(json, logger);
-        if (data && lodash_1.isString(data.publicName) && !lodash_1.isEmpty(data.publicName)) {
+        const data = (0, heat_server_common_1.tryParse)(json, logger);
+        if (data && (0, lodash_1.isString)(data.publicName) && !(0, lodash_1.isEmpty)(data.publicName)) {
             return {
                 value: {
                     alias: data.publicName,

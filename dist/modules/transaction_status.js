@@ -9,8 +9,8 @@ async function transactionStatus(context, param) {
         const { addrXpub, transactionId } = param;
         const url = `${protocol}://${host}/api/v1/blockchain/transaction/${transactionId}`;
         const json = await req.get(url);
-        const transaction = heat_server_common_1.tryParse(json, logger);
-        if (lodash_1.isNumber(transaction.confirmations)) {
+        const transaction = (0, heat_server_common_1.tryParse)(json, logger);
+        if ((0, lodash_1.isNumber)(transaction.confirmations)) {
             return {
                 value: {
                     isAccepted: true,
@@ -20,7 +20,7 @@ async function transactionStatus(context, param) {
         }
         const url2 = `${protocol}://${host}/api/v1/blockchain/unconfirmed/${addrXpub}/0`;
         const json2 = await req.get(url2);
-        const unconfirmedTransactions = heat_server_common_1.tryParse(json2, logger);
+        const unconfirmedTransactions = (0, heat_server_common_1.tryParse)(json2, logger);
         if (!Array.isArray(unconfirmedTransactions)) {
             return {
                 value: {

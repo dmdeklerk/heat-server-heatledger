@@ -27,18 +27,18 @@ async function eventLookup(context, param) {
         const { blockchain, assetType, assetId, addrXpub, from, to, minimal } = param;
         const url = `${protocol}://${host}/api/v1/blockchain/transactions/account/${addrXpub}/${from}/${to}`;
         const json = await req.get(url);
-        const data = heat_server_common_1.tryParse(json, logger);
+        const data = (0, heat_server_common_1.tryParse)(json, logger);
         let value;
         if (minimal) {
-            value = data.map(x => x.transaction);
+            value = data.map((x) => x.transaction);
         }
         else {
             value = [];
             for (let i = 0; i < data.length; i++) {
                 let txData = data[i];
                 let events = getEventsFromTransaction(txData, addrXpub);
-                events.forEach(event => {
-                    event.data = heat_server_common_1.createEventData(event);
+                events.forEach((event) => {
+                    event.data = (0, heat_server_common_1.createEventData)(event);
                 });
                 let date = new Date(Date.UTC(2013, 10, 24, 12, 0, 0, 0) + txData.timestamp * 1000);
                 value.push({
@@ -76,8 +76,8 @@ function getEventsFromTransaction(txData, _addrXpub) {
             case TYPE_PAYMENT:
                 if (txData.subtype == SUBTYPE_PAYMENT_ORDINARY_PAYMENT) {
                     events.push(isIncoming
-                        ? heat_server_common_1.buildEventReceive({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.NATIVE, '0', txData.amount, 0)
-                        : heat_server_common_1.buildEventSend({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.NATIVE, '0', txData.amount, 0));
+                        ? (0, heat_server_common_1.buildEventReceive)({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.NATIVE, "0", txData.amount, 0)
+                        : (0, heat_server_common_1.buildEventSend)({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.NATIVE, "0", txData.amount, 0));
                 }
                 break;
             case TYPE_COLORED_COINS:
@@ -88,39 +88,41 @@ function getEventsFromTransaction(txData, _addrXpub) {
                     case SUBTYPE_COLORED_COINS_ASSET_TRANSFER: {
                         let { asset, quantity } = txData.attachment;
                         events.push(isIncoming
-                            ? heat_server_common_1.buildEventReceive({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.TOKEN_TYPE_1, asset, quantity, 0)
-                            : heat_server_common_1.buildEventSend({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.TOKEN_TYPE_1, asset, quantity, 0));
+                            ? (0, heat_server_common_1.buildEventReceive)({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.TOKEN_TYPE_1, asset, quantity, 0)
+                            : (0, heat_server_common_1.buildEventSend)({ addrXpub, publicKey, alias }, heat_server_common_1.AssetTypes.TOKEN_TYPE_1, asset, quantity, 0));
                         break;
                     }
                     case SUBTYPE_COLORED_COINS_ASK_ORDER_PLACEMENT:
                     case SUBTYPE_COLORED_COINS_BID_ORDER_PLACEMENT: {
                         const isAsk = txData.subtype == SUBTYPE_COLORED_COINS_ASK_ORDER_PLACEMENT;
                         let { asset, quantity, price, currency } = txData.attachment;
-                        const assetType = asset == '0' ? heat_server_common_1.AssetTypes.NATIVE : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
-                        const currencyType = currency == '0' ? heat_server_common_1.AssetTypes.NATIVE : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
+                        const assetType = asset == "0" ? heat_server_common_1.AssetTypes.NATIVE : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
+                        const currencyType = currency == "0" ? heat_server_common_1.AssetTypes.NATIVE : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
                         events.push(isAsk
-                            ? heat_server_common_1.buildEventSellOrder(assetType, asset, currencyType, currency, quantity, price)
-                            : heat_server_common_1.buildEventBuyOrder(assetType, asset, currencyType, currency, quantity, price));
+                            ? (0, heat_server_common_1.buildEventSellOrder)(assetType, asset, currencyType, currency, quantity, price)
+                            : (0, heat_server_common_1.buildEventBuyOrder)(assetType, asset, currencyType, currency, quantity, price));
                         break;
                     }
                     case SUBTYPE_COLORED_COINS_ASK_ORDER_CANCELLATION:
                     case SUBTYPE_COLORED_COINS_BID_ORDER_CANCELLATION:
                         const isAsk = txData.subtype == SUBTYPE_COLORED_COINS_ASK_ORDER_CANCELLATION;
                         const { cancelledOrderAsset, cancelledOrderQuantity, cancelledOrderPrice, cancelledOrderCurrency, } = txData.attachment;
-                        const assetType = cancelledOrderAsset == '0'
+                        const assetType = cancelledOrderAsset == "0"
                             ? heat_server_common_1.AssetTypes.NATIVE
                             : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
-                        const currencyType = cancelledOrderCurrency == '0'
+                        const currencyType = cancelledOrderCurrency == "0"
                             ? heat_server_common_1.AssetTypes.NATIVE
                             : heat_server_common_1.AssetTypes.TOKEN_TYPE_1;
                         events.push(isAsk
-                            ? heat_server_common_1.buildEventCancelSell(assetType, cancelledOrderAsset, currencyType, cancelledOrderCurrency, cancelledOrderQuantity, cancelledOrderPrice)
-                            : heat_server_common_1.buildEventCancelBuy(assetType, cancelledOrderAsset, currencyType, cancelledOrderCurrency, cancelledOrderQuantity, cancelledOrderPrice));
+                            ? (0, heat_server_common_1.buildEventCancelSell)(assetType, cancelledOrderAsset, currencyType, cancelledOrderCurrency, cancelledOrderQuantity, cancelledOrderPrice)
+                            : (0, heat_server_common_1.buildEventCancelBuy)(assetType, cancelledOrderAsset, currencyType, cancelledOrderCurrency, cancelledOrderQuantity, cancelledOrderPrice));
                         break;
+                    case SUBTYPE_COLORED_COINS_ATOMIC_MULTI_TRANSFER: {
+                        break;
+                    }
                     case SUBTYPE_COLORED_COINS_WHITELIST_ACCOUNT_ADDITION:
                     case SUBTYPE_COLORED_COINS_WHITELIST_ACCOUNT_REMOVAL:
                     case SUBTYPE_COLORED_COINS_WHITELIST_MARKET:
-                    case SUBTYPE_COLORED_COINS_ATOMIC_MULTI_TRANSFER:
                         break;
                 }
                 break;
@@ -128,7 +130,7 @@ function getEventsFromTransaction(txData, _addrXpub) {
                 switch (txData.subtype) {
                     case SUBTYPE_ACCOUNT_CONTROL_EFFECTIVE_BALANCE_LEASING:
                         const { period } = txData.attachment;
-                        events.push(heat_server_common_1.buildEventLeaseBalance({ addrXpub, publicKey, alias }, period));
+                        events.push((0, heat_server_common_1.buildEventLeaseBalance)({ addrXpub, publicKey, alias }, period));
                         break;
                     case SUBTYPE_ACCOUNT_CONTROL_INTERNET_ADDRESS:
                         break;
@@ -136,7 +138,7 @@ function getEventsFromTransaction(txData, _addrXpub) {
                 break;
         }
         if (!isIncoming) {
-            events.push(heat_server_common_1.buildEventFee(txData.fee));
+            events.push((0, heat_server_common_1.buildEventFee)(txData.fee));
         }
         return events;
     }

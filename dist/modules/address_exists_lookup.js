@@ -1,28 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publicKeyLookup = void 0;
+exports.addressExistsLookup = void 0;
 const heat_server_common_1 = require("heat-server-common");
 const lodash_1 = require("lodash");
-async function publicKeyLookup(context, param) {
+async function addressExistsLookup(context, param) {
     try {
         const { req, protocol, host, logger } = context;
-        const { addrXpub } = param;
-        const url = `${protocol}://${host}/api/v1/account/publickey/${addrXpub}`;
+        const { blockchain, addrXpub } = param;
+        const url = `${protocol}://${host}/api/v1/blockchain/transactions/account/count/${addrXpub}`;
         const json = await req.get(url);
         const data = (0, heat_server_common_1.tryParse)(json, logger);
-        if ((0, lodash_1.isString)(data.value)) {
+        if ((0, lodash_1.isNumber)(data.count)) {
             return {
                 value: {
-                    publicKey: data.value,
+                    exists: data.count > 0
                 },
             };
         }
         else {
-            logger.warn(`No public key for ${addrXpub} ${(0, heat_server_common_1.prettyPrint)(data)}`);
             return {
-                value: {
-                    publicKey: null,
-                },
+                error: `Unregognized response: ${JSON.stringify(data)}`
             };
         }
     }
@@ -32,5 +29,5 @@ async function publicKeyLookup(context, param) {
         };
     }
 }
-exports.publicKeyLookup = publicKeyLookup;
-//# sourceMappingURL=publickey_lookup.js.map
+exports.addressExistsLookup = addressExistsLookup;
+//# sourceMappingURL=address_exists_lookup.js.map

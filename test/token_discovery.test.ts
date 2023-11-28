@@ -16,7 +16,7 @@ describe('Token Discovery', () => {
     })
     console.log('response', prettyPrint(resp))
     isObject(resp)
-    let result = resp.value
+    let result = resp.value!
     isArray(result)
     for (const token of result) {
       isObject(token)

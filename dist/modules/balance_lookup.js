@@ -7,12 +7,12 @@ async function balanceLookup(context, param) {
     try {
         const { req, protocol, host, logger } = context;
         const { blockchain, assetType, addrXpub, assetId } = param;
-        const response = await token_discovery_1.tokenDiscovery(context, {
+        const response = await (0, token_discovery_1.tokenDiscovery)(context, {
             blockchain, assetType, addrXpub: addrXpub
         });
         if (response.value) {
             let entry = response.value.find(entry => entry.assetType == assetType &&
-                heat_server_common_1.compareCaseInsensitive(entry.assetId, assetId));
+                (0, heat_server_common_1.compareCaseInsensitive)(entry.assetId, assetId));
             return {
                 value: {
                     value: entry ? entry.value : '0',

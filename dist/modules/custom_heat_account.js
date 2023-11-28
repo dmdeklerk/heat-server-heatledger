@@ -9,8 +9,8 @@ async function customHeatAccount(context, param) {
         const { addrXpub } = param;
         const url = `${protocol}://${host}/api/v1/account/find/${addrXpub}`;
         const json = await req.get(url);
-        const data = heat_server_common_1.tryParse(json, logger);
-        if (data && lodash_1.isString(data.id)) {
+        const data = (0, heat_server_common_1.tryParse)(json, logger);
+        if (data && (0, lodash_1.isString)(data.id)) {
             return {
                 value: {
                     id: data.id,
@@ -29,7 +29,7 @@ async function customHeatAccount(context, param) {
             };
         }
         else {
-            this.logger.warn(`No custom heat account data for ${addrXpub} ${heat_server_common_1.prettyPrint(data)}`);
+            this.logger.warn(`No custom heat account data for ${addrXpub} ${(0, heat_server_common_1.prettyPrint)(data)}`);
             return {
                 value: {
                     id: null,

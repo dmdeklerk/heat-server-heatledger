@@ -10,7 +10,7 @@ describe('Event Lookup', () => {
     const blockchain: Blockchains = Blockchains.HEAT
     const assetType: AssetTypes = AssetTypes.NATIVE
     const assetId: string = '0'
-    const addrXpub: string = '12289004105163558344'
+    const addrXpub: string = '12062728104609074243'
     const from: number = 0
     const to: number = 100
     const minimal: boolean = false
@@ -20,7 +20,7 @@ describe('Event Lookup', () => {
     })
     //console.log('response', resp)
     isObject(resp)
-    let result = resp.value
+    let result = resp.value!
     isArray(result)
     for (const entry of result) {
       isObject(entry)

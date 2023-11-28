@@ -20,7 +20,7 @@ function nativeHeatDetails() {
     };
 }
 function assetHeatDetails(resp) {
-    const [symbol, name] = heat_server_common_1.tryParse(resp.properties) || ['*', '*'];
+    const [symbol, name] = (0, heat_server_common_1.tryParse)(resp.properties) || ['*', '*'];
     return {
         contract: resp.id,
         decimals: resp.decimals,
@@ -34,9 +34,9 @@ async function tokenDiscovery(context, param) {
         const { addrXpub, assetType } = param;
         const url = `${protocol}://${host}/api/v1/account/balances/${addrXpub}/0/1/0/100`;
         const json = await req.get(url);
-        const data = heat_server_common_1.tryParse(json, logger);
+        const data = (0, heat_server_common_1.tryParse)(json, logger);
         const value = [];
-        if (lodash_1.isArray(data)) {
+        if ((0, lodash_1.isArray)(data)) {
             data.forEach(d => {
                 if (d.id == '0') {
                     value.push({

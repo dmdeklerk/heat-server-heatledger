@@ -10,6 +10,7 @@ import { transactionStatus } from './modules/transaction_status'
 import { broadcast } from './modules/broadcast'
 import { customHeatAccount } from './modules/custom_heat_account'
 import { ModuleProvider } from 'heat-server-common/dist/types/module_provider.interface';
+import { addressExistsLookup } from './modules/address_exists_lookup';
 
 /* ------------------- Configuration Start ------------------- */
 
@@ -27,7 +28,8 @@ const modules: ModuleProvider = {
   reverseResolveAlias,
   tokenDiscovery,
   transactionStatus,
-  customHeatAccount
+  customHeatAccount,
+  addressExistsLookup,
 }
 
 /* ------------------- Configuration End --------------------- */
